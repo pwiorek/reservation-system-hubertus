@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Stadnina"
+    }
+  },
+  "defaultProject": "Stadnina",
+  "cli": {
+    "analytics": false
+  }
 }
