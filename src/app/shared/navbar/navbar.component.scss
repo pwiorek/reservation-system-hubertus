@@ -1,0 +1,134 @@
+@import 'src/app/scss/mixins';
+@import 'src/app/scss/variables';
+
+
+
+.sidebar {
+    width: 300px;
+    background-color: white;
+
+    @include respond-to('laptop') {
+        background-color: $main-color;
+        color: white;
+    }
+}
+
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+}
+
+.sidebar__close-btn {
+    position: absolute;
+    top: 7px;
+    right: 5px;
+    color: $main-color;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.user__avatar {
+    background-color: white;
+    width: 90px;
+    border-radius: 50%;
+    margin: 0.3rem;
+}
+
+.user__name {
+    font-weight: 300;
+    margin: 0;
+
+    @include respond-to('laptop') {
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            width: 0px;
+            height: 1px;
+            display: block;
+            background: white;
+            transition: 300ms;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+    }
+
+    
+}
+
+.nav-menu {
+    margin-bottom: 140px;
+}
+
+.nav-menu__option {
+    @include respond-to('laptop') {
+        color: white;
+    }
+}
+
+.nav-menu__option--active {
+    box-shadow: 5px 0px 0px 0px rgba(255,255,255,1) inset;
+    -webkit-box-shadow: 5px 0px 0px 0px rgba(255,255,255,1) inset;
+    -moz-box-shadow: 5px 0px 0px 0px rgba(255,255,255,1) inset;
+}
+
+.nav-menu__option-icon {
+    margin-right: 15px;
+    margin-left: 20px;
+    color: $main-color;
+
+    @include respond-to('laptop') {
+        color: white;
+    }
+}
+
+.sign-out {
+    bottom: 0;
+}
+
+.sign-out__hr {
+    width: 80%;
+    height: 2px;
+    border: none;
+    background-color: $main-color;
+
+    @include respond-to('laptop') {
+        background-color: white;
+    }
+}
+
+.sign-out__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.sign-out__btn mat-icon {
+    color: $main-color;
+    margin: 0 10px;
+
+    @include respond-to('laptop') {
+        color: white;
+    }
+}
+
+.navbar {
+    background-color: white;
+    color: $main-color;
+}
+
+.content {
+    background-color: #FFFFFF;
+}
+

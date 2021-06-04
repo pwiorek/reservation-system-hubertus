@@ -1,0 +1,40 @@
+<mat-sidenav-container>
+    <mat-sidenav class="sidebar" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
+    [fixedInViewport]="true" [autoFocus]="false">
+        <div class="sidebar-container">
+            <section class="user">
+                <img class="user__avatar" alt="User avatar" src="../../../assets/man.jpg">
+                <h2 class="user__name">{{ username }}</h2>
+            </section>
+            <mat-nav-list class="nav-menu" >
+                <a mat-list-item class="nav-menu__option" onclick="this.blur()" *ngFor="let option of navOptions" 
+                [style.backdrop-filter]="isCurrentOption(option.name) ? 'brightness(0.95)' : 'none'"
+                [class.nav-menu__option--active]="!mobileQuery.matches && isCurrentOption(option.name) "
+                routerLink="/{{ option.name.toLowerCase() }}" >
+                    <mat-icon class="nav-menu__option-icon">{{ option.icon }}</mat-icon>
+                    <span>{{ option.name }}</span>
+                </a>
+            </mat-nav-list>
+            <button mat-icon-button class="sidebar__close-btn" (click)="snav.toggle()" *ngIf="mobileQuery.matches">
+                <mat-icon>close</mat-icon>
+            </button>
+
+            <section class="sign-out">
+                <hr class="sign-out__hr">
+                <button mat-button class="sign-out__btn">
+                    <mat-icon>logout</mat-icon>
+                    <span>Wyloguj się</span>
+                </button>
+            </section>
+        </div>
+    </mat-sidenav>
+
+
+    <mat-sidenav-content class="content" *ngIf="mobileQuery.matches">
+        <mat-toolbar class="navbar">
+            <button mat-icon-button class="example-icon" aria-label="Icon-button with menu icon" (click)="snav.toggle()" onclick="this.blur()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </mat-toolbar>
+    </mat-sidenav-content>
+</mat-sidenav-container>
