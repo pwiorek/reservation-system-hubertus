@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Stadnina": {
+    "stajnia-hubertus": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Stadnina",
+            "outputPath": "dist/stajnia-hubertus",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Stadnina:build"
+            "browserTarget": "stajnia-hubertus:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Stadnina:build:production"
+              "browserTarget": "stajnia-hubertus:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Stadnina:build"
+            "browserTarget": "stajnia-hubertus:build"
           }
         },
         "test": {
@@ -114,18 +114,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Stadnina:serve"
+            "devServerTarget": "stajnia-hubertus:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Stadnina:serve:production"
+              "devServerTarget": "stajnia-hubertus:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Stadnina",
+  "defaultProject": "stajnia-hubertus",
   "cli": {
     "analytics": false
   }
