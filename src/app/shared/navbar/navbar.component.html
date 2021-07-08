@@ -29,12 +29,12 @@
         </div>
     </mat-sidenav>
 
-
-    <mat-sidenav-content class="content" *ngIf="mobileQuery.matches">
-        <mat-toolbar class="navbar">
+    <mat-sidenav-content class="content">
+        <mat-toolbar class="navbar" *ngIf="mobileQuery.matches">
             <button mat-icon-button class="example-icon" aria-label="Icon-button with menu icon" (click)="snav.toggle()" onclick="this.blur()">
                 <mat-icon>menu</mat-icon>
             </button>
         </mat-toolbar>
+        <router-outlet class="site-content"></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

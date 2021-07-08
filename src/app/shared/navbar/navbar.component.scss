@@ -51,7 +51,7 @@
 
         &::after {
             content: '';
-            width: 0px;
+            width: 0;
             height: 1px;
             display: block;
             background: white;
@@ -63,7 +63,7 @@
         }
     }
 
-    
+
 }
 
 .nav-menu {
@@ -77,9 +77,9 @@
 }
 
 .nav-menu__option--active {
-    box-shadow: 5px 0px 0px 0px rgba(255,255,255,1) inset;
-    -webkit-box-shadow: 5px 0px 0px 0px rgba(255,255,255,1) inset;
-    -moz-box-shadow: 5px 0px 0px 0px rgba(255,255,255,1) inset;
+    box-shadow: 5px 0 0 0 rgba(255,255,255,1) inset;
+    -webkit-box-shadow: 5px 0 0 0 rgba(255,255,255,1) inset;
+    -moz-box-shadow: 5px 0 0 0 rgba(255,255,255,1) inset;
 }
 
 .nav-menu__option-icon {
@@ -130,5 +130,5 @@
 
 .content {
     background-color: #FFFFFF;
+    height: 100vh;
 }
-
