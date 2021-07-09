@@ -1,14 +1,14 @@
-<form class="login-form">
+<form class="login-form" #form="ngForm" [formGroup]="loginForm" (ngSubmit)="logIn(form)">
     <h4 class="login-form__title">Stajnia hubertus</h4>
 
     <mat-form-field appearance="fill">
       <mat-label>Wpisz login</mat-label>
-      <input matInput type="text">
+      <input matInput type="text" maxlength="25" name="username" formControlName="username" autocomplete="on">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Wpisz hasło</mat-label>
-      <input matInput [type]="hidePassword ? 'password' : 'text'">
+      <input matInput [type]="hidePassword ? 'password' : 'text'" maxlength="30" name="password" formControlName="password" autocomplete="on">
       <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
