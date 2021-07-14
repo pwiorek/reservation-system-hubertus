@@ -10,8 +10,10 @@ const routes: Routes = [
   { path: 'auth', component: LoginComponent },
   { path: 'app', component: NavbarComponent, canActivate: [AuthGuard], children: [
 
-  ]}
+  ]},
+  { path: '', redirectTo: '/auth', pathMatch: 'full' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
