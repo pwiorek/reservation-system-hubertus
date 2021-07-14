@@ -37,7 +37,7 @@ export class AuthenticationService {
     } else { return true; }
   }
 
-  private isTokenExpired(token: number): boolean {
-    return (Math.floor((new Date()).getTime() / 1000)) >= token;
+  private isTokenExpired(tokenExp: number): boolean {
+    return (Math.floor((new Date()).getTime() / 1000)) >= tokenExp;
   }
 }
