@@ -1,21 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MediaMatcher } from '@angular/cdk/layout';
+
+import { ViewBreakpoints } from 'src/app/globals';
+
 
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
   styleUrls: ['./timetable.component.scss']
 })
-export class TimetableComponent implements OnInit {
+export class TimetableComponent implements OnInit, OnDestroy {
   week: string[] = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
   hours: string[] = [];
 
   startHour = '10:30';
   endHour = '20:30';
 
-  constructor() { }
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+
+  constructor(
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
+    private media: MediaMatcher
+  ) { }
 
   ngOnInit(): void {
+    this.detectMediaQuery();
     this.hours = this.getHoursRange(this.startHour, this.endHour, 30);
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+  }
+
+  private detectMediaQuery(): void {
+    this.mobileQuery = this.media.matchMedia(`(max-width: ${ ViewBreakpoints.phone })`);
+    this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
   getHoursRange(startHour: string, endHour: string, intervalMinutes: number): string[] {

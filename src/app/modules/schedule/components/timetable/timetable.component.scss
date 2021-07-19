@@ -1,7 +1,9 @@
+@import 'src/app/scss/mixins';
+@import 'src/app/scss/variables';
+
 .timetable {
   display: flex;
   flex-direction: row;
-  height: 100vh;
   width: 100%;
 }
 
@@ -22,18 +24,28 @@
   justify-content: flex-end;
   align-items: flex-end;
   border-bottom: 1px solid black;
-  padding-right: 10px;
-  padding-left: 5px;
+  padding-right: 6px;
+  padding-left: 3px;
+  font-size: 0.9em;
+
+  @include respond-to('laptop') {
+    padding-right: 10px;
+    padding-left: 5px;
+    font-size: 1em;
+  }
 }
 
 .tail__day {
-  height: 2.2rem;
+  top: 4rem;
+  height: 1.9rem;
   text-align: center;
-  font-size: 25px;
-}
+  font-size: 20px;
 
-.tail__blank--corner {
-  height: 2.2rem;
+
+  @include respond-to('laptop') {
+    height: 2.2rem;
+    font-size: 25px;
+  }
 }
 
 .tail__booking {
