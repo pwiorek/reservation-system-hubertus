@@ -1,0 +1,13 @@
+<section class="week-picker">
+  <button class="week-picker__btn" (click)="moveToPreviousWeek()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <span class="week-picker__date">
+      {{ week[0] | date: 'dd' }} - {{ week[week.length - 1] | date: 'dd' }} {{ week[0] | date: 'MMMM yyyy'}}
+  </span>
+  <button class="week-picker__btn" (click)="moveToNextWeek()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</section>
+
+

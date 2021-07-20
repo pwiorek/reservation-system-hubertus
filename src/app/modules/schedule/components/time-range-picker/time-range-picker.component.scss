@@ -1,0 +1,35 @@
+.week-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.week-picker__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 1.7em;
+  transition: transform 1s;
+
+  mat-icon {
+    font-size: 1.7em;
+  }
+
+  &:first-child {
+    &:hover {
+      transform: translateX(-4px);
+    }
+  }
+
+  &:last-child {
+    &:hover {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.week-picker__date {
+  width: 11.4em;
+  text-align: center;
+}
+

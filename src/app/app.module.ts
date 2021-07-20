@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { Globals } from './globals';
 import { JwtInterceptor } from './auth/services/jwt-interceptor.service';
+import { ScheduleModule } from './modules/schedule/schedule.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { JwtInterceptor } from './auth/services/jwt-interceptor.service';
     MaterialModule,
     AuthModule,
     SharedModule,
+    ScheduleModule,
   ],
   providers: [
     Globals,

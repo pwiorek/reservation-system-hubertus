@@ -36,16 +36,17 @@
 }
 
 .tail__day {
-  top: 4rem;
-  height: 1.9rem;
+  height: 2.7rem;
   text-align: center;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-
-  @include respond-to('laptop') {
-    height: 2.2rem;
-    font-size: 25px;
-  }
+.tail__day--date {
+  font-size: 0.8em;
 }
 
 .tail__booking {

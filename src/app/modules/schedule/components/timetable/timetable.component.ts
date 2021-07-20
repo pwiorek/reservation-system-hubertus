@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 import { ViewBreakpoints } from 'src/app/globals';
+import { DateHandlerService } from '../../services/date-handler.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,28 +13,34 @@ import { ViewBreakpoints } from 'src/app/globals';
   styleUrls: ['./timetable.component.scss']
 })
 export class TimetableComponent implements OnInit, OnDestroy {
-  week: string[] = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
+  week: Date[] = [];
   hours: string[] = [];
+  days: string[] = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
 
   startHour = '10:30';
   endHour = '20:30';
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  private _subscription: Subscription;
 
   constructor(
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
-    private media: MediaMatcher
+    private media: MediaMatcher,
+    private dateHandler: DateHandlerService,
   ) { }
 
   ngOnInit(): void {
     this.detectMediaQuery();
+    this.week = this.dateHandler.getWeekForDate(new Date());
+    this.getCurrentWeek();
     this.hours = this.getHoursRange(this.startHour, this.endHour, 30);
   }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this._subscription.unsubscribe();
   }
 
   private detectMediaQuery(): void {
@@ -66,4 +74,8 @@ export class TimetableComponent implements OnInit, OnDestroy {
     }
   }
 
+  getCurrentWeek(): void {
+    this.week = this.dateHandler.currentWeek;
+    this._subscription = this.dateHandler.currentWeekChange.subscribe(week => this.week = week);
+  }
 }
