@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import localePl from '@angular/common/locales/pl';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +14,8 @@ import { Globals } from './globals';
 import { JwtInterceptor } from './auth/services/jwt-interceptor.service';
 import { ScheduleModule } from './modules/schedule/schedule.module';
 
+
+registerLocaleData(localePl);
 
 @NgModule({
   declarations: [
@@ -33,6 +37,10 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'pl'
     },
   ],
   bootstrap: [AppComponent],
