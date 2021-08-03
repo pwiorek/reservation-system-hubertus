@@ -2,7 +2,7 @@
   <section class="column column__hours">
     <article class="tail tail__day"></article>
     <article *ngFor="let hour of hours" class="tail tail__hour">
-      {{ hour }}
+      {{ hour | date: "HH:mm"}}
     </article>
   </section>
   <section class="column" *ngFor="let day of week; let i = index">
@@ -11,8 +11,10 @@
       <span *ngIf="!mobileQuery.matches; else firstLetterOfDay ">{{ days[i] }}</span>
       <ng-template #firstLetterOfDay>{{ days[i][0] }}</ng-template>
     </article>
-    <article *ngFor="let hour of hours" class="tail tail__booking">
-
+    <article *ngFor="let hour of hours; let i = index" class="tail tail__booking">
+      <ng-container *ngFor="let booking of bookings">
+        <app-booking-indicator *ngIf="isCorrectTimestamp(booking, day, hour)" [booking]="booking"></app-booking-indicator>
+      </ng-container>
     </article>
   </section>
 </div>

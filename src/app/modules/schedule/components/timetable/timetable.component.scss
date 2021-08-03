@@ -53,4 +53,11 @@
   border: 1px solid black;
   margin-top: -1px;
   margin-left: -1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-booking-indicator {
+  width: 80%;
 }

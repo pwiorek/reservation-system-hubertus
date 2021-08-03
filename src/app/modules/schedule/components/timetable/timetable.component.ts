@@ -5,6 +5,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ViewBreakpoints } from 'src/app/globals';
 import { DateHandlerService } from '../../services/date-handler.service';
 import { Subscription } from 'rxjs';
+import { BookingsService } from '../../services/bookings.service';
+import { Booking } from '../../../../data/entities/booking';
 
 
 @Component({
@@ -16,7 +18,9 @@ export class TimetableComponent implements OnInit, OnDestroy {
   week: Date[];
   hours: Date[] = [];
   days: string[] = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
+  bookings: Booking[] = [];
 
+  // TODO: Fetch from api
   startHour = '10:30';
   endHour = '20:30';
   interval = 30;
@@ -30,6 +34,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
     private dateHandler: DateHandlerService,
+    private bookingsService: BookingsService
   ) { }
 
   ngOnInit(): void {
@@ -44,28 +49,25 @@ export class TimetableComponent implements OnInit, OnDestroy {
   }
 
   private detectMediaQuery(): void {
-    this.mobileQuery = this.media.matchMedia(`(max-width: ${ ViewBreakpoints.phone })`);
+    this.mobileQuery = this.media.matchMedia(`(max-width: ${ViewBreakpoints.phone})`);
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
-  getHoursRange(startHour: string, endHour: string, intervalMinutes: number): string[] {
-    const hours: string[] = [];
+  getHoursRange(startHour: string, endHour: string, intervalMinutes: number): Date[] {
+    const hours: Date[] = [];
 
-    const startTime = convertStringToDate(startHour);
-    const endTime = convertStringToDate(endHour);
+    const startTime = convertTimeStringToDate(startHour);
+    const endTime = convertTimeStringToDate(endHour);
 
     while (startTime.getTime() <= endTime.getTime()) {
-      let minutes = String(startTime.getMinutes());
-      if (minutes.length === 1) { minutes += '0'; }
-
-      hours.push(String(startTime.getHours()) + ':' + minutes);
+      hours.push(new Date(startTime));
       startTime.setMinutes(startTime.getMinutes() + intervalMinutes);
     }
 
     return hours;
 
-    function convertStringToDate(time: string): Date {
+    function convertTimeStringToDate(time: string): Date {
       const dateTime = new Date();
       dateTime.setHours(Number(time.split(':')[0]));
       dateTime.setMinutes(Number(time.split(':')[1]));
@@ -77,6 +79,26 @@ export class TimetableComponent implements OnInit, OnDestroy {
   initTimetable(): void {
     this._subscription.add(this.dateHandler.currentWeekChange.subscribe(week => {
       this.week = week;
+      this.getBookings(new Date(this.week[0]), new Date(this.week[6])).then(b => this.bookings = b);
     }));
+  }
+
+  async getBookings(rangeStart: Date, rangeEnd: Date): Promise<Booking[]> {
+    rangeStart.setHours(+this.startHour.split(':')[0], +this.startHour.split(':')[1], 0, 0);
+    rangeEnd.setHours(+this.endHour.split(':')[0], +this.endHour.split(':')[1], 0, 0);
+
+    const bookings = await this.bookingsService.getBookingsForRange(rangeStart, rangeEnd);
+    bookings.forEach(booking => {
+      booking.startTime = String(new Date(booking.startTime).getTime());
+      booking.endTime = String(new Date(booking.endTime).getTime());
+    });
+
+    return bookings.sort((a, b) => +a.startTime - +b.startTime);
+  }
+
+  isCorrectTimestamp(booking: Booking, day: Date, hour: Date): boolean {
+    const startTime = new Date(day);
+    startTime.setHours(hour.getHours(), hour.getMinutes(), 0, 0);
+    return +booking.startTime <= startTime.getTime() && +booking.endTime > startTime.getTime();
   }
 }

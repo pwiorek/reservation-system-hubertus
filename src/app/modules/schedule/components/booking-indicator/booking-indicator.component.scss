@@ -1,0 +1,14 @@
+@import "src/app/scss/variables";
+
+.booking {
+  background: $main-color;
+  color: white;
+  text-align: center;
+  height: 1.5em;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px 0;
+}
+
