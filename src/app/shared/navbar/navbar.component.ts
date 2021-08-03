@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
+import { ViewBreakpoints } from '../../globals';
 
 interface NavOption {
   name: string;
@@ -41,7 +42,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   private detectMediaQuery(): void {
-    this.mobileQuery = this.media.matchMedia('(max-width: 1280px)');
+    this.mobileQuery = this.media.matchMedia(`(max-width: ${ ViewBreakpoints.laptop })`);
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
