@@ -7,7 +7,7 @@
                 <h2 class="user__name">{{ username }}</h2>
             </section>
             <mat-nav-list class="nav-menu" >
-                <a mat-list-item class="nav-menu__option" onclick="this.blur()" *ngFor="let option of navOptions" 
+                <a mat-list-item class="nav-menu__option" onclick="this.blur()" *ngFor="let option of navOptions"
                 [style.backdrop-filter]="isCurrentOption(option.name) ? 'brightness(0.95)' : 'none'"
                 [class.nav-menu__option--active]="!mobileQuery.matches && isCurrentOption(option.name) "
                 routerLink="/{{ option.name.toLowerCase() }}" >
@@ -31,7 +31,7 @@
 
     <mat-sidenav-content class="content">
         <mat-toolbar class="navbar" *ngIf="mobileQuery.matches">
-            <button mat-icon-button class="example-icon" aria-label="Icon-button with menu icon" (click)="snav.toggle()" onclick="this.blur()">
+            <button mat-icon-button class="navbar__menu-button" aria-label="Icon-button with menu icon" (click)="snav.toggle()" onclick="this.blur()">
                 <mat-icon>menu</mat-icon>
             </button>
         </mat-toolbar>
