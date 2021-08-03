@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs';
+import { ReplaySubject, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DateHandlerService {
   currentWeek: Date[] = [];
-  currentWeekChange: Subject<Date[]> = new Subject<Date[]>();
+  currentWeekChange: Subject<Date[]> = new ReplaySubject<Date[]>(1);
 
-  constructor() { }
+  constructor() {
+    this.getWeekForDate(new Date());
+  }
 
   getWeekForDate(date: Date): Date[] {
     const week: Date[] = [];

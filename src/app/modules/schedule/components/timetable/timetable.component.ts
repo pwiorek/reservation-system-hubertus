@@ -13,16 +13,17 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./timetable.component.scss']
 })
 export class TimetableComponent implements OnInit, OnDestroy {
-  week: Date[] = [];
-  hours: string[] = [];
+  week: Date[];
+  hours: Date[] = [];
   days: string[] = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
 
   startHour = '10:30';
   endHour = '20:30';
+  interval = 30;
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
-  private _subscription: Subscription;
+  private _subscription: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -33,9 +34,8 @@ export class TimetableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.detectMediaQuery();
-    this.week = this.dateHandler.getWeekForDate(new Date());
-    this.getCurrentWeek();
-    this.hours = this.getHoursRange(this.startHour, this.endHour, 30);
+    this.hours = this.getHoursRange(this.startHour, this.endHour, this.interval);
+    this.initTimetable();
   }
 
   ngOnDestroy(): void {
@@ -74,8 +74,9 @@ export class TimetableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getCurrentWeek(): void {
-    this.week = this.dateHandler.currentWeek;
-    this._subscription = this.dateHandler.currentWeekChange.subscribe(week => this.week = week);
+  initTimetable(): void {
+    this._subscription.add(this.dateHandler.currentWeekChange.subscribe(week => {
+      this.week = week;
+    }));
   }
 }

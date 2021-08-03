@@ -1,4 +1,4 @@
-<div class="timetable">
+<div class="timetable" *ngIf="week">
   <section class="column column__hours">
     <article class="tail tail__day"></article>
     <article *ngFor="let hour of hours" class="tail tail__hour">

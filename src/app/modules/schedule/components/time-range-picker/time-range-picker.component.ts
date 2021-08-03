@@ -16,7 +16,6 @@ export class TimeRangePickerComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.week = this.dateHandler.getWeekForDate(new Date('10.04.2021'));
     this.getCurrentWeek();
   }
 
@@ -25,7 +24,6 @@ export class TimeRangePickerComponent implements OnInit, OnDestroy {
   }
 
   getCurrentWeek(): void {
-    this.week = this.dateHandler.currentWeek;
     this._subscription = this.dateHandler.currentWeekChange.subscribe(week => this.week = week);
   }
 
