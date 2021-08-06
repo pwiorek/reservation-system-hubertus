@@ -7,6 +7,7 @@ import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ApiModule } from 'build/openapi/api.module';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
@@ -27,6 +28,7 @@ registerLocaleData(localePl);
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ApiModule,
     MaterialModule,
     AuthModule,
     SharedModule,

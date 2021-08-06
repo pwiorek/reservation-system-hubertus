@@ -149,5 +149,10 @@
   },
   "rulesDirectory": [
     "codelyzer"
-  ]
+  ],
+  "linterOptions": {
+    "exclude": [
+      "build/**/*"
+    ]
+  }
 }
