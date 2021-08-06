@@ -5,8 +5,9 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ViewBreakpoints } from 'src/app/globals';
 import { DateHandlerService } from '../../services/date-handler.service';
 import { Subscription } from 'rxjs';
-import { BookingsService } from '../../services/bookings.service';
-import { Booking } from '../../../../data/entities/booking';
+import { BookingsApiService } from 'build/openapi/api/bookings-api.service';
+import { Booking } from 'build/openapi/model/booking';
+
 
 
 @Component({
@@ -34,7 +35,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
     private dateHandler: DateHandlerService,
-    private bookingsService: BookingsService
+    private bookingsApi: BookingsApiService
   ) { }
 
   ngOnInit(): void {
@@ -87,7 +88,10 @@ export class TimetableComponent implements OnInit, OnDestroy {
     rangeStart.setHours(+this.startHour.split(':')[0], +this.startHour.split(':')[1], 0, 0);
     rangeEnd.setHours(+this.endHour.split(':')[0], +this.endHour.split(':')[1], 0, 0);
 
-    const bookings = await this.bookingsService.getBookingsForRange(rangeStart, rangeEnd);
+    const rangeStartString = rangeStart.toLocalISOString();
+    const rangeEndString = rangeEnd.toLocalISOString();
+
+    const bookings = await this.bookingsApi.filterBookings(rangeStartString, rangeEndString).toPromise();
     bookings.forEach(booking => {
       booking.startTime = String(new Date(booking.startTime).getTime());
       booking.endTime = String(new Date(booking.endTime).getTime());

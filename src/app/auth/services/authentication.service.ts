@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { UserApiService } from '../../data/api/user-api.service';
+import { AuthenticationApiService } from 'build/openapi/api/authentication-api.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,14 @@ export class AuthenticationService {
 
   constructor(
     private router: Router,
-    private userApi: UserApiService
+    private authApi: AuthenticationApiService,
   ) { }
 
   logIn(username: string, password: string): Observable<void> {
     if (localStorage.getItem('token') != null) {
       this.logOut();
     }
-    return this.userApi.authUser(username, password).pipe(
+    return this.authApi.auth({username, password}).pipe(
       map(authResponse => {
         localStorage.setItem('token', authResponse.token);
       }));

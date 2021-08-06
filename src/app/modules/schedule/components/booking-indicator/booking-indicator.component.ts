@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Booking } from '../../../../data/entities/booking';
+import { Booking } from 'build/openapi/model/booking';
 
 @Component({
   selector: 'app-booking-indicator',
