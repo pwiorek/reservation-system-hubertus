@@ -17,14 +17,9 @@ import { Booking } from 'build/openapi/model/booking';
 })
 export class TimetableComponent implements OnInit, OnDestroy {
   week: Date[];
-  hours: Date[] = [];
+  hours: string[] = [];
   days: string[] = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
   bookings: Booking[] = [];
-
-  // TODO: Fetch from api
-  startHour = '10:30';
-  endHour = '20:30';
-  interval = 30;
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -40,8 +35,10 @@ export class TimetableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.detectMediaQuery();
-    this.hours = this.getHoursRange(this.startHour, this.endHour, this.interval);
-    this.initTimetable();
+    this._subscription.add(this.bookingsApi.getBookingTimes().subscribe(hours => {
+      this.hours = hours;
+      this.initTimetable();
+    }));
   }
 
   ngOnDestroy(): void {
@@ -55,28 +52,6 @@ export class TimetableComponent implements OnInit, OnDestroy {
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
-  getHoursRange(startHour: string, endHour: string, intervalMinutes: number): Date[] {
-    const hours: Date[] = [];
-
-    const startTime = convertTimeStringToDate(startHour);
-    const endTime = convertTimeStringToDate(endHour);
-
-    while (startTime.getTime() <= endTime.getTime()) {
-      hours.push(new Date(startTime));
-      startTime.setMinutes(startTime.getMinutes() + intervalMinutes);
-    }
-
-    return hours;
-
-    function convertTimeStringToDate(time: string): Date {
-      const dateTime = new Date();
-      dateTime.setHours(Number(time.split(':')[0]));
-      dateTime.setMinutes(Number(time.split(':')[1]));
-
-      return dateTime;
-    }
-  }
-
   initTimetable(): void {
     this._subscription.add(this.dateHandler.currentWeekChange.subscribe(week => {
       this.week = week;
@@ -85,8 +60,11 @@ export class TimetableComponent implements OnInit, OnDestroy {
   }
 
   async getBookings(rangeStart: Date, rangeEnd: Date): Promise<Booking[]> {
-    rangeStart.setHours(+this.startHour.split(':')[0], +this.startHour.split(':')[1], 0, 0);
-    rangeEnd.setHours(+this.endHour.split(':')[0], +this.endHour.split(':')[1], 0, 0);
+    const startHour = this.hours[0].split(':');
+    const endHour = this.hours[this.hours.length - 1].split(':');
+
+    rangeStart.setHours(+startHour[0], +startHour[1], 0, 0);
+    rangeEnd.setHours(+endHour[0], +endHour[1], 0, 0);
 
     const rangeStartString = rangeStart.toLocalISOString();
     const rangeEndString = rangeEnd.toLocalISOString();
@@ -100,9 +78,9 @@ export class TimetableComponent implements OnInit, OnDestroy {
     return bookings.sort((a, b) => +a.startTime - +b.startTime);
   }
 
-  isCorrectTimestamp(booking: Booking, day: Date, hour: Date): boolean {
+  isCorrectTimestamp(booking: Booking, day: Date, hour: string): boolean {
     const startTime = new Date(day);
-    startTime.setHours(hour.getHours(), hour.getMinutes(), 0, 0);
+    startTime.setHours(+hour.split(':')[0], +hour.split(':')[1], 0, 0);
     return +booking.startTime <= startTime.getTime() && +booking.endTime > startTime.getTime();
   }
 }
