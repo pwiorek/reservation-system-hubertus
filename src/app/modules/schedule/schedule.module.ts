@@ -9,10 +9,11 @@ import { TimeRangePickerComponent } from './components/time-range-picker/time-ra
 import { TodayButtonComponent } from './components/today-button/today-button.component';
 import { BookingCreationFormComponent } from './components/booking-creation-form/booking-creation-form.component';
 import { BookingIndicatorComponent} from './components/booking-indicator/booking-indicator.component';
+import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
 
 
 @NgModule({
-  declarations: [ TimetableComponent, TimeRangePickerComponent, TodayButtonComponent ],
+  declarations: [ TimetableComponent, TimeRangePickerComponent, TodayButtonComponent, BookingCreationFormComponent, BookingIndicatorComponent, BookingDetailsComponent ],
   imports: [
     CommonModule,
     MaterialModule,

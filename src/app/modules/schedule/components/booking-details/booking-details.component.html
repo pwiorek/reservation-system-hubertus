@@ -1,0 +1,13 @@
+<section>
+  <mat-dialog-content>
+    <p>Data: {{booking.startTime | date: "dd.MM"}}</p>
+    <p>Czas trwania rezerwacji {{booking.startTime | date: "HH:mm"}} - {{booking.endTime | date: "HH:mm"}}</p>
+    <p>Koń: {{booking.subject}}</p>
+    <p *ngIf="activity">Aktywność: {{activity.name}}</p>
+    <p *ngIf="user">Osoba rezerwująca: {{user.name}}</p>
+    <p>Rezerwacja stworzona: {{booking.creationTime | date: "dd.MM - HH:mm" }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Zamknij</button>
+  </mat-dialog-actions>
+</section>
