@@ -40,19 +40,9 @@ registerLocaleData(localePl);
   ],
   providers: [
     Globals,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    },
-    {
-      provide: LOCALE_ID,
-      useValue: 'pl'
-    },
-    {
-      provide: DateAdapter,
-      useClass: MyDateAdapter
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'pl' },
+    { provide: DateAdapter, useClass: MyDateAdapter },
   ],
   bootstrap: [AppComponent],
 })
