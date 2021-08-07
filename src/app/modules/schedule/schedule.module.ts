@@ -7,13 +7,15 @@ import { TimetableComponent } from './components/timetable/timetable.component';
 import { MaterialModule } from '../../material.module';
 import { TimeRangePickerComponent } from './components/time-range-picker/time-range-picker.component';
 import { TodayButtonComponent } from './components/today-button/today-button.component';
+import { ScheduleComponent } from './layouts/schedule/schedule.component';
 import { BookingCreationFormComponent } from './components/booking-creation-form/booking-creation-form.component';
 import { BookingIndicatorComponent} from './components/booking-indicator/booking-indicator.component';
 import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
 
 
+
 @NgModule({
-  declarations: [ TimetableComponent, TimeRangePickerComponent, TodayButtonComponent, BookingCreationFormComponent, BookingIndicatorComponent, BookingDetailsComponent ],
+  declarations: [ TimetableComponent, TimeRangePickerComponent, TodayButtonComponent, ScheduleComponent, BookingCreationFormComponent, BookingIndicatorComponent, BookingDetailsComponent ],
   imports: [
     CommonModule,
     MaterialModule,
