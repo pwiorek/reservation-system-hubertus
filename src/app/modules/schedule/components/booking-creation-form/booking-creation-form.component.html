@@ -1,0 +1,44 @@
+<form class="booking-form" [formGroup]="bookingForm" (ngSubmit)="createBooking()">
+  <mat-form-field appearance="fill" class="booking-form__field">
+    <mat-label>Wybierz datę</mat-label>
+    <input matInput [matDatepicker]="date" formControlName="date">
+    <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+    <mat-datepicker #date></mat-datepicker>
+  </mat-form-field>
+
+  <div class="booking-form__hours">
+    <mat-form-field appearance="fill" class="booking-form__hours--start">
+      <mat-label>Od godziny</mat-label>
+      <mat-select formControlName="startTime">
+        <mat-option *ngFor="let hour of hours" [value]="hour">
+          {{hour}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="booking-form__hours--end">
+      <mat-label>Do godziny</mat-label>
+      <mat-select formControlName="endTime">
+        <mat-option *ngFor="let hour of hours" [value]="hour">
+          {{hour}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="booking-form__subject" appearance="fill">
+    <mat-label>Imię konia</mat-label>
+    <input matInput formControlName="subject">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="booking-form__activity">
+    <mat-label>Typ aktywności</mat-label>
+    <mat-select formControlName="activity">
+      <mat-option *ngFor="let activity of activities" [value]="activity.id">
+        {{activity.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button type="submit" [disabled]="!bookingForm.valid">Zarezerwuj termin</button>
+</form>
