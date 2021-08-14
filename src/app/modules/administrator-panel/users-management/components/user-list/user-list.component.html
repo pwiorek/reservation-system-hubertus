@@ -1,0 +1,10 @@
+<mat-list>
+  <ng-container *ngFor="let user of users">
+    <mat-list-item class="user">
+      <mat-icon class="user__avatar material-icons-outlined">account_circle</mat-icon>
+      <p class="user__name">{{ user.name }}</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
+

@@ -16,6 +16,7 @@ import { Globals } from './globals';
 import { JwtInterceptor } from './auth/services/jwt-interceptor.service';
 import { ScheduleModule } from './modules/schedule/schedule.module';
 import { MyDateAdapter } from './utilities/my-date-adapter';
+import { UserManagementModule } from './modules/administrator-panel/users-management/user-management.module';
 
 import 'src/app/utilities/date-utilities';
 
@@ -37,6 +38,7 @@ registerLocaleData(localePl);
     AuthModule,
     SharedModule,
     ScheduleModule,
+    UserManagementModule
   ],
   providers: [
     Globals,

@@ -1,0 +1,23 @@
+mat-list {
+  display: inline-block;
+}
+
+.user {
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 100px;
+
+  &:hover {
+    background-color: #eaeaea;
+  }
+}
+
+.user__avatar {
+  height: 40px;
+  width: 40px;
+  font-size: 40px;
+}
+
+.user__name {
+  margin-left: 10px;
+}
