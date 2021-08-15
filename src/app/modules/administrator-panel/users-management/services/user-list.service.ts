@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from 'build/openapi/model/user';
 import { UsersApiService } from 'build/openapi/api/users-api.service';
-import { Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class UserListService {
   users: User[];
 
   filteredUsers: User[];
-  filteredUsersChange: Subject<User[]> = new Subject();
+  filteredUsersChange: Subject<User[]> = new ReplaySubject(1);
 
   constructor(
     private usersApi: UsersApiService
@@ -20,8 +20,8 @@ export class UserListService {
 
   getUsers(): void {
     this.usersApi.getUsers().subscribe(users => {
-      this.users = users;
-      this.setFilteredUsers(this.users);
+        this.users = users;
+        this.setFilteredUsers(this.users);
     });
   }
 
