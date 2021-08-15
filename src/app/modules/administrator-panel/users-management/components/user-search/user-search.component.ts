@@ -21,6 +21,7 @@ export class UserSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.searchTerm('');
     this._subscription.unsubscribe();
   }
 
