@@ -6,6 +6,7 @@ import { ViewBreakpoints } from '../../globals';
 interface NavOption {
   name: string;
   icon: string;
+  link: string;
 }
 
 @Component({
@@ -19,9 +20,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   username = 'Jan Kowalski';
   navOptions: NavOption[] = [
-    {name: 'Konto', icon: 'person'},
-    {name: 'Grafik', icon: 'event'},
-    {name: 'Wyszukiwarka terminów', icon: 'search'},
+    {name: 'Grafik', icon: 'event', link: 'schedule'},
+    {name: 'Panel administratora', icon: 'admin_panel_settings', link: 'admin'},
   ];
 
   mobileQuery: MediaQueryList;

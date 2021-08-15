@@ -8,9 +8,9 @@
             </section>
             <mat-nav-list class="nav-menu" >
                 <a mat-list-item class="nav-menu__option" onclick="this.blur()" *ngFor="let option of navOptions"
-                [style.backdrop-filter]="isCurrentOption(option.name) ? 'brightness(0.95)' : 'none'"
-                [class.nav-menu__option--active]="!mobileQuery.matches && isCurrentOption(option.name) "
-                routerLink="/{{ option.name.toLowerCase() }}" >
+                [style.backdrop-filter]="isCurrentOption(option.link) ? 'brightness(0.95)' : 'none'"
+                [class.nav-menu__option--active]="!mobileQuery.matches && isCurrentOption(option.link) "
+                routerLink="{{ option.link.toLowerCase() }}" >
                     <mat-icon class="nav-menu__option-icon">{{ option.icon }}</mat-icon>
                     <span>{{ option.name }}</span>
                 </a>
